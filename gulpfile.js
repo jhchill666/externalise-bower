@@ -11,7 +11,9 @@ gulp.task('default', function () {
 });
 
 
-
+/**
+ * Browserify using a dummy entry point, 'requiring' the bower components on prebundle
+ */
 gulp.task('dist-vendor', function() {
     return gulp.src('./lib/noop.js' , {read: false})
         .pipe(browserify())
@@ -23,6 +25,9 @@ gulp.task('dist-vendor', function() {
 })
 
 
+/**
+ * Browserify using your main application entry point, 'external'ising the bower components on prebundle
+ */
 gulp.task('dist-js', function() {
     return gulp.src('./src/js/app.js', {read: false})
         .pipe(browserify())
@@ -34,12 +39,18 @@ gulp.task('dist-js', function() {
 })
 
 
+/**
+ * Copy over our html
+ */
 gulp.task('dist-html', function() {
     return gulp.src('./src/index.html')
         .pipe(gulp.dest('./build'));
 })
 
 
+/**
+ * Finally launch the html to see if it all worked
+ */
 gulp.task('connect', connect.server({
     root: ['./build'],
     port: '3000',
